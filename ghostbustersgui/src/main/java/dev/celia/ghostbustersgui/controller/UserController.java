@@ -2,6 +2,7 @@ package dev.celia.ghostbustersgui.controller;
 
 import java.util.List;
 
+import dev.celia.ghostbustersgui.gui.CreateGhostView;
 import dev.celia.ghostbustersgui.model.GhostClass;
 import dev.celia.ghostbustersgui.model.GhostModel;
 import dev.celia.ghostbustersgui.model.UserModel;
@@ -23,13 +24,7 @@ public class UserController {
         this.menuView = menuView;
     }
 
-    public void captureGhost() {
-        String name = createGhostView.getGhostName();
-        GhostClass ghostClass = createGhostView.selectGhostClass();
-        String dangerLevel = createGhostView.getDangerLevel();
-        String ability = createGhostView.getAbility();
-        String captureDate = createGhostView.getCaptureDate();
-
+    public void captureGhost(String name, GhostClass ghostClass, String dangerLevel, String ability, String captureDate) {
         GhostModel newGhost = new GhostModel(name, ghostClass, dangerLevel, ability, captureDate);
         userModel.addGhost(newGhost);
         createGhostView.showCaptureSuccess(name);
