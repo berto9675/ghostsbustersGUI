@@ -1,40 +1,33 @@
 package dev.celia.ghostbustersgui.controller;
 
-import java.util.List;
-
 import dev.celia.ghostbustersgui.model.GhostClass;
 import dev.celia.ghostbustersgui.model.GhostModel;
 import dev.celia.ghostbustersgui.model.UserModel;
+import dev.celia.ghostbustersgui.view.CreateGhostView;
 
 public class UserController {
     private final UserModel userModel;
     private final CreateGhostView createGhostView; 
-    private final GhostView ghostView;
+ /*   private final GhostView ghostView;
     private final DeleteGhostView deleteGhostView;
     private final FilterByMonthView filterByMonthView;
-    private final MenuView menuView;
+    private final MenuView menuView;*/
 
-     public UserController(UserModel userModel, CreateGhostView createGhostView, GhostView ghostView, DeleteGhostView deleteGhostView, FilterByMonthView filterByMonthView, MenuView menuView) {
+     public UserController(UserModel userModel, CreateGhostView createGhostView) {
         this.userModel = userModel;
         this.createGhostView = createGhostView;
-        this.ghostView = ghostView;
+     /*   this.ghostView = ghostView;
         this.deleteGhostView = deleteGhostView;
         this.filterByMonthView = filterByMonthView;
-        this.menuView = menuView;
+        this.menuView = menuView;*/
     }
 
-    public void captureGhost() {
-        String name = createGhostView.getGhostName();
-        GhostClass ghostClass = createGhostView.selectGhostClass();
-        String dangerLevel = createGhostView.getDangerLevel();
-        String ability = createGhostView.getAbility();
-        String captureDate = createGhostView.getCaptureDate();
-
+    public void captureGhost(String name, GhostClass ghostClass, String dangerLevel, String ability, String captureDate) {
         GhostModel newGhost = new GhostModel(name, ghostClass, dangerLevel, ability, captureDate);
         userModel.addGhost(newGhost);
-        createGhostView.showCaptureSuccess(name);
+        createGhostView.captureMessage(name);
     }
-
+/*
     public void showCapturedGhosts() {
         List<GhostModel> ghosts = userModel.getGhosts();
         ghostView.showGhosts(ghosts);
@@ -80,5 +73,5 @@ public class UserController {
                 }
             }
         }
-    }
+    }*/
 }
