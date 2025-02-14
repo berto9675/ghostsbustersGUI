@@ -1,4 +1,4 @@
-package dev.celia.ghostbustersgui;
+package dev.celia.ghostbustersgui.view;
 
 
 import javax.swing.*;
