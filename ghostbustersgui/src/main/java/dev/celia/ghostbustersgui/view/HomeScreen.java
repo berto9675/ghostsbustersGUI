@@ -1,4 +1,4 @@
-package dev.celia.ghostbustersgui;
+package dev.celia.ghostbustersgui.view;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -19,7 +19,7 @@ import java.io.InputStream;
 
 import javax.swing.plaf.FontUIResource;
 
-import dev.celia.ghostbustersgui.utils.ButtonUtils;
+import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 
 public class HomeScreen {
     public static void main(String[] args) {
