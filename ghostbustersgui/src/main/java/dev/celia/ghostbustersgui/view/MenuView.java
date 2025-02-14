@@ -33,19 +33,23 @@ public class MenuView extends JFrame {
         add(titulo, BorderLayout.NORTH);
 
         JPanel panelBotones = new JPanel(new GridBagLayout());
-        panelBotones.setOpaque(false); 
+        panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 0, 10, 0); 
-
+        
+      
+        gbc.gridy = 0;
+        panelBotones.add(Box.createVerticalStrut(80), gbc);
+        
         // Botones
         JButton capturar = new JButton("Capturar Fantasma");
         JButton ver = new JButton("Ver Fantasmas");
         JButton salir = new JButton("Salir");
-
+        
         Color colorFondo = new Color(35, 182, 60);
         Color colorTexto = new Color(255, 255, 255);
         Font fuente = new Font("Arial", Font.BOLD, 16);
-
+        
         for (JButton btn : new JButton[]{capturar, ver, salir}) {
             btn.setBackground(colorFondo);
             btn.setForeground(colorTexto);
@@ -53,12 +57,14 @@ public class MenuView extends JFrame {
             btn.setFocusPainted(false);
             btn.setPreferredSize(new Dimension(200, 40)); 
         }
-
-        gbc.gridy = 0;
-        panelBotones.add(capturar, gbc);
+        
+     
         gbc.gridy = 1;
-        panelBotones.add(ver, gbc);
+        gbc.weighty = 0;
+        panelBotones.add(capturar, gbc);
         gbc.gridy = 2;
+        panelBotones.add(ver, gbc);
+        gbc.gridy = 3;
         panelBotones.add(salir, gbc);
 
         salir.addActionListener(e -> {
