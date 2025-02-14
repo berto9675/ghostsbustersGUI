@@ -1,5 +1,6 @@
 package dev.celia.ghostbustersgui.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,9 +9,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -142,8 +145,64 @@ public class CreateGhostView extends JFrame {
 
     public void captureMessage(String name) {
 
-    }
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/ghost_min.png"));
 
+        JPanel messagePanel = new JPanel(new BorderLayout());
+
+        Font customFont = utils.loadCustomFont("/fonts/GHOSTBUS.ttf").deriveFont(14f);
+
+        JLabel captureLabel = new JLabel("¡Fantasma " + name + " capturado con éxito!", JLabel.CENTER);
+        captureLabel.setFont(customFont.deriveFont(Font.BOLD, 16f));
+        messagePanel.add(captureLabel, BorderLayout.NORTH);
+        
+        JLabel iconLabel = new JLabel(icon, JLabel.CENTER);
+        messagePanel.add(iconLabel, BorderLayout.CENTER);
+        
+        JPanel captBtn = new JPanel(new FlowLayout());
+        
+        JButton anotherGhostButton = new JButton("Crear otro fantasma");
+        utils.ButtonUtils.applyHoverEffect(anotherGhostButton);
+        anotherGhostButton.setFont(customFont);
+        
+        JButton backToMenuButton = new JButton("Volver al menú");
+        utils.ButtonUtils.applyHoverEffect(backToMenuButton);
+        backToMenuButton.setFont(customFont);
+        
+        captBtn.add(anotherGhostButton);
+        captBtn.add(backToMenuButton);
+        
+        messagePanel.add(captBtn, BorderLayout.SOUTH);
+        
+        JDialog dialog = new JDialog(this, "Captura Exitosa", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLayout(new BorderLayout());
+        dialog.add(messagePanel, BorderLayout.CENTER);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        
+        anotherGhostButton.addActionListener(e -> {
+            dialog.dispose();
+            cleanFields();
+        });
+        /*
+        backToMenuButton.addActionListener(e -> {
+            userController.MenuView();
+        });
+        */
+        dialog.setVisible(true);
+    }
+    private void cleanFields() {
+        SwingUtilities.invokeLater(() -> {
+            nameField.setText("");
+            abilityField.setText("");
+            captureDateField.setText("");
+            ghostClassCombo.setSelectedIndex(0);
+            dangerLevelCombo.setSelectedIndex(0);
+            nameField.requestFocus();
+            revalidate();
+            repaint();
+        });
+    }
 
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.WARNING_MESSAGE);
