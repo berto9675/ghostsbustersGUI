@@ -25,6 +25,7 @@ public class HomeScreen {
         utils.setUIFont(customFont);
 
         UserModel userModel = new UserModel();
+
         UserController userController = new UserController(userModel);
         
                 JFrame frame = new JFrame ("Ghostbusters");
