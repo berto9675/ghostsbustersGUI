@@ -160,13 +160,11 @@ public class MenuView extends JFrame {
         utils.ButtonUtils.applyHoverEffect(okButton);
         okButton.setFont(customFont);
         okButton.setPreferredSize(new Dimension(150, 40));
-    
-        // Panel del botón
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(okButton);
     
-        // Ajustar el diseño del diálogo
         farewell.getContentPane().setBackground(Color.BLACK);
         farewell.add(contentPanel, BorderLayout.CENTER);
         farewell.add(buttonPanel, BorderLayout.SOUTH);

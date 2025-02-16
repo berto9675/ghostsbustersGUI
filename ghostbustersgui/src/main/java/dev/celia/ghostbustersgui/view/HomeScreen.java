@@ -1,6 +1,5 @@
 package dev.celia.ghostbustersgui.view;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
 import javax.swing.JButton;
@@ -18,7 +17,7 @@ import javax.swing.plaf.FontUIResource;
 import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 
 public class HomeScreen {
-    public static void main(String[] args) {
+    public HomeScreen() {
         
         //Cargar la fuente desde utils
         Font customFont = utils.loadCustomFont("/fonts/font.ttf");
