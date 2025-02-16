@@ -16,7 +16,6 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,7 +24,6 @@ import javax.swing.UIManager;
 
 import dev.celia.ghostbustersgui.controller.UserController;
 import dev.celia.ghostbustersgui.model.GhostClass;
-// import dev.celia.ghostbustersgui.model.UserModel;
 
 public class CreateGhostView extends JFrame {
     private JTextField nameField;
@@ -184,13 +182,14 @@ public class CreateGhostView extends JFrame {
             dialog.dispose();
             cleanFields();
         });
-        /*
+
         backToMenuButton.addActionListener(e -> {
-            userController.MenuView();
+        //    userController.openMenuView();
         });
-        */
+
         dialog.setVisible(true);
     }
+
     private void cleanFields() {
         SwingUtilities.invokeLater(() -> {
             nameField.setText("");
@@ -205,16 +204,41 @@ public class CreateGhostView extends JFrame {
     }
 
     public void showError(String message) {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.WARNING_MESSAGE);
-    }
-/*    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            UserModel userModel = new UserModel();
-            CreateGhostView createGhostView = new CreateGhostView(null);
-            UserController userController = new UserController(userModel, createGhostView);
+        UIManager.put("OptionPane.background", Color.WHITE);
+        UIManager.put("Panel.background", Color.WHITE);
+        ImageIcon errorIcon = new ImageIcon(getClass().getResource("/images/ghost_error.png"));
+       
+        JPanel errorPanel = new JPanel(new BorderLayout());
 
-            createGhostView = new CreateGhostView(userController);
-            createGhostView.setVisible(true);
+        JPanel messagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JLabel iconLabel = new JLabel(errorIcon);
+        JLabel messageLabel = new JLabel(message);
+        messageLabel.setForeground(Color.RED);
+        messageLabel.setFont(utils.loadCustomFont("/fonts/GHOSTBUS.ttf").deriveFont(Font.BOLD, 14f));
+
+        messagePanel.add(iconLabel);
+        messagePanel.add(messageLabel);
+        errorPanel.add(messagePanel, BorderLayout.CENTER);
+
+        JButton okButton = new JButton("Aceptar");
+        okButton.setBackground(new Color(35, 182, 60));
+        okButton.setFocusPainted(false);
+
+        JPanel errorButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        errorButtonPanel.add(okButton);
+        errorPanel.add(errorButtonPanel, BorderLayout.SOUTH);
+
+        JDialog dialog = new JDialog(this, "Error", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLayout(new BorderLayout());
+        dialog.add(errorPanel, BorderLayout.CENTER);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+
+        okButton.addActionListener(e -> {
+            dialog.dispose();
         });
-    }*/
+
+        dialog.setVisible(true);
+    }
 }

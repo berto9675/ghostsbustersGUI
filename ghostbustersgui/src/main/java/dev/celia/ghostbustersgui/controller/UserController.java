@@ -7,26 +7,21 @@ import dev.celia.ghostbustersgui.view.CreateGhostView;
 
 public class UserController {
     private final UserModel userModel;
-    private final CreateGhostView createGhostView; 
- /*   private final GhostView ghostView;
-    private final DeleteGhostView deleteGhostView;
-    private final FilterByMonthView filterByMonthView;
-    private final MenuView menuView;*/
 
-     public UserController(UserModel userModel, CreateGhostView createGhostView) {
+    public UserController(UserModel userModel) {
         this.userModel = userModel;
-        this.createGhostView = createGhostView;
-     /*   this.ghostView = ghostView;
-        this.deleteGhostView = deleteGhostView;
-        this.filterByMonthView = filterByMonthView;
-        this.menuView = menuView;*/
+    }
+
+    public void openCreateGhostView() {
+        new CreateGhostView(this).setVisible(true);
     }
 
     public void captureGhost(String name, GhostClass ghostClass, String dangerLevel, String ability, String captureDate) {
         GhostModel newGhost = new GhostModel(name, ghostClass, dangerLevel, ability, captureDate);
         userModel.addGhost(newGhost);
-        createGhostView.captureMessage(name);
-    }
+        }
+}
+
 /*
     public void showCapturedGhosts() {
         List<GhostModel> ghosts = userModel.getGhosts();
@@ -74,4 +69,3 @@ public class UserController {
             }
         }
     }*/
-}
