@@ -1,19 +1,19 @@
 package dev.celia.ghostbustersgui.view;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
-import javax.swing.SwingWorker;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.UIManager;
-import java.awt.Color;
-import java.awt.Font;
 
-import javax.swing.plaf.FontUIResource;
-
+import dev.celia.ghostbustersgui.controller.UserController;
+import dev.celia.ghostbustersgui.model.UserModel;
 import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 
 public class HomeScreen {
@@ -23,8 +23,9 @@ public class HomeScreen {
         Font customFont = utils.loadCustomFont("/fonts/font.ttf");
         //Aplicarla a toda la UI
         utils.setUIFont(customFont);
-        
-        
+
+        UserModel userModel = new UserModel();
+        UserController userController = new UserController(userModel);
         
                 JFrame frame = new JFrame ("Ghostbusters");
                 frame.setSize(800, 600);
@@ -95,7 +96,7 @@ public class HomeScreen {
                         @Override
                         protected void done() {
                             frame.dispose(); // Cierra la ventana de inicio
-                            new MenuView(); // Abre la ventana del "menú" desde la clase
+                            userController.openMenuView(); // Abre la ventana del "menú" desde la clase
                         }
                     };
         
@@ -109,18 +110,4 @@ public class HomeScreen {
                 frame.add(backgroundLabel);
                 frame.setVisible(true);
             }
-        
-            public static void setUIFont(FontUIResource font) {
-                UIManager.put("Label.font", font);
-                UIManager.put("Button.font", font);
-                UIManager.put("TextField.font", font);
-                UIManager.put("TextArea.font", font);
-                UIManager.put("CheckBox.font", font);
-                UIManager.put("RadioButton.font", font);
-                UIManager.put("ComboBox.font", font);
-                UIManager.put("List.font", font);
-                UIManager.put("Table.font", font);
-                UIManager.put("Menu.font", font);
-                UIManager.put("MenuItem.font", font);
-                UIManager.put("ToolTip.font", font);
-            }}
+}

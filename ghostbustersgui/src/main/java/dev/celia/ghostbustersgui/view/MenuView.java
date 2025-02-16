@@ -1,16 +1,33 @@
 package dev.celia.ghostbustersgui.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
-
+import dev.celia.ghostbustersgui.controller.UserController;
 
 public class MenuView extends JFrame {
 
+    private final UserController userController;
 
-    public MenuView() {
-
+    public MenuView(UserController userController) {
+        this.userController = userController;
 
         setTitle("Ghostbusters");
         setSize(800, 600);
@@ -40,8 +57,7 @@ public class MenuView extends JFrame {
         panelBotones.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 0, 10, 0); 
-        
-      
+              
         gbc.gridy = 0;
         panelBotones.add(Box.createVerticalStrut(80), gbc);
         
@@ -60,8 +76,7 @@ public class MenuView extends JFrame {
             btn.setFocusPainted(false);
             btn.setPreferredSize(new Dimension(200, 40)); 
         }
-        
-     
+
         gbc.gridy = 1;
         gbc.weighty = 0;
         panelBotones.add(capturar, gbc);
@@ -70,7 +85,11 @@ public class MenuView extends JFrame {
         gbc.gridy = 3;
         panelBotones.add(salir, gbc);
 
-
+        capturar.addActionListener(e -> {
+            this.dispose();
+            userController.openCreateGhostView();
+        });
+        
         salir.addActionListener(e -> exitConfirmation());
         
         add(panelBotones, BorderLayout.CENTER);
@@ -172,10 +191,5 @@ public class MenuView extends JFrame {
         farewell.pack();
         farewell.setLocationRelativeTo(this);
         farewell.setVisible(true);
-    }
-    
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MenuView::new);
     }
 }

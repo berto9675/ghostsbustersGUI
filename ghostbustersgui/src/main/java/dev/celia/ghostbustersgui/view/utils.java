@@ -1,8 +1,5 @@
 package dev.celia.ghostbustersgui.view;
 
-import javax.swing.JButton;
-import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -11,6 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 public class utils {
 
@@ -22,6 +23,9 @@ public class utils {
             Color textHoverColor = normalColor;
             button.setBackground(normalColor);
             button.setForeground(textColor);
+
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
             button.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -70,7 +74,4 @@ public class utils {
         UIManager.put("MenuItem.font", fontUI);
         UIManager.put("ToolTip.font", fontUI);
     }
-
-
-
 }
