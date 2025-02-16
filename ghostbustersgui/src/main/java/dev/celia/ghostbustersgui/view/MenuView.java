@@ -16,6 +16,7 @@ public class MenuView extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setUndecorated(true);
 
         java.net.URL imageUrl = getClass().getClassLoader().getResource("images/menu.png");
 
