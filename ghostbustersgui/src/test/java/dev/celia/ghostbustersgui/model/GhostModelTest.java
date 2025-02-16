@@ -19,4 +19,17 @@ public class GhostModelTest {
         assertThat(ghost.getAbility(), is("Leer la mente"));
         assertThat(ghost.getCaptureDate(), is("01-01-2025"));
     }
+
+    @Test
+    @DisplayName("Test ToString")
+    public void testToString() {
+        GhostModel ghost = new GhostModel("Casper", GhostClass.CLASS_II, "Bajo", "Leer la mente", "01-01-2025");
+        String expectedOutput = String.format("%-3d %-20s %-35s %-8s %s",
+        ghost.getID(),
+        ghost.getName(),
+        ghost.getGhostClass().getDescription(),
+        ghost.getDangerLvl(),
+        ghost.getCaptureDate());
+        assertThat(ghost.toString(), is(expectedOutput));
+    }
 }
