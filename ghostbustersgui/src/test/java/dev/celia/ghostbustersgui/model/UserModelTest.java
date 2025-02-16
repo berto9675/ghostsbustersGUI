@@ -1,6 +1,7 @@
 package dev.celia.ghostbustersgui.model;
 
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,5 +17,13 @@ public class UserModelTest {
         GhostModel ghost = new GhostModel("Casper", GhostClass.CLASS_I, "Bajo", "Mimetización", "10-06-2023");
         userModel.addGhost(ghost);
         assertThat(userModel.getGhosts(), hasItem(ghost));
+    }
+
+    @Test
+    @DisplayName("Test para que al añadir un fantasma de null")
+    void testAddNullGhost() {
+        userModel = new UserModel();
+        userModel.addGhost(null);
+        assertThat(userModel.getGhosts().size(), is(0));
     }
 }
