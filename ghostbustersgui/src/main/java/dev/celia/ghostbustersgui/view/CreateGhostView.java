@@ -47,7 +47,7 @@ public class CreateGhostView extends JFrame {
         setLocationRelativeTo(null);
         UIManager.put("Panel.background", new Color(11, 7, 15));
 
-        Font customFont = utils.loadCustomFont("/fonts/GHOSTBUS.ttf").deriveFont(14f);
+        Font customFont = utils.loadCustomFont("/fonts/font.ttf").deriveFont(14f);
         utils.setUIFont(customFont);
 
         JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 10));
@@ -147,7 +147,7 @@ public class CreateGhostView extends JFrame {
 
         JPanel messagePanel = new JPanel(new BorderLayout());
 
-        Font customFont = utils.loadCustomFont("/fonts/GHOSTBUS.ttf").deriveFont(14f);
+        Font customFont = utils.loadCustomFont("/fonts/font.ttf").deriveFont(14f);
 
         JLabel captureLabel = new JLabel("¡Fantasma " + name + " capturado con éxito!", JLabel.CENTER);
         captureLabel.setFont(customFont.deriveFont(Font.BOLD, 16f));
@@ -184,7 +184,8 @@ public class CreateGhostView extends JFrame {
         });
 
         backToMenuButton.addActionListener(e -> {
-        //    userController.openMenuView();
+            dispose();
+            userController.openMenuView();
         });
 
         dialog.setVisible(true);
@@ -214,7 +215,7 @@ public class CreateGhostView extends JFrame {
         JLabel iconLabel = new JLabel(errorIcon);
         JLabel messageLabel = new JLabel(message);
         messageLabel.setForeground(Color.RED);
-        messageLabel.setFont(utils.loadCustomFont("/fonts/GHOSTBUS.ttf").deriveFont(Font.BOLD, 14f));
+        messageLabel.setFont(utils.loadCustomFont("/fonts/font.ttf").deriveFont(Font.BOLD, 14f));
 
         messagePanel.add(iconLabel);
         messagePanel.add(messageLabel);
@@ -235,9 +236,7 @@ public class CreateGhostView extends JFrame {
         dialog.pack();
         dialog.setLocationRelativeTo(this);
 
-        okButton.addActionListener(e -> {
-            dialog.dispose();
-        });
+        okButton.addActionListener(e -> dialog.dispose());
 
         dialog.setVisible(true);
     }

@@ -4,12 +4,17 @@ import dev.celia.ghostbustersgui.model.GhostClass;
 import dev.celia.ghostbustersgui.model.GhostModel;
 import dev.celia.ghostbustersgui.model.UserModel;
 import dev.celia.ghostbustersgui.view.CreateGhostView;
+import dev.celia.ghostbustersgui.view.MenuView;
 
 public class UserController {
     private final UserModel userModel;
 
     public UserController(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public void openMenuView() {
+        new MenuView(this).setVisible(true);
     }
 
     public void openCreateGhostView() {

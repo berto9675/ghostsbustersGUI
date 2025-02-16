@@ -1,30 +1,31 @@
 package dev.celia.ghostbustersgui.view;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
-import javax.swing.SwingWorker;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.UIManager;
-import java.awt.Color;
-import java.awt.Font;
 
-import javax.swing.plaf.FontUIResource;
-
+import dev.celia.ghostbustersgui.controller.UserController;
+import dev.celia.ghostbustersgui.model.UserModel;
 import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 
 public class HomeScreen {
-    public static void main(String[] args) {
+    public HomeScreen() {
         
         //Cargar la fuente desde utils
-        Font customFont = utils.loadCustomFont("/fonts/GHOSTBUS.TTF");
+        Font customFont = utils.loadCustomFont("/fonts/font.ttf");
         //Aplicarla a toda la UI
         utils.setUIFont(customFont);
-        
-        
+
+        UserModel userModel = new UserModel();
+        UserController userController = new UserController(userModel);
         
                 JFrame frame = new JFrame ("Ghostbusters");
                 frame.setSize(800, 600);
@@ -43,7 +44,7 @@ public class HomeScreen {
                 //Titulo
         
                 JLabel titleLabel = new JLabel("<html><div style='text-align: center;'>Bienvenido a la central<br>Cazafantasmas</div></html>", SwingConstants.CENTER);
-                titleLabel.setBounds(150, 140, 500, 130);
+                titleLabel.setBounds(10, 0, 800, 130);
                 titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD,35f));
                 titleLabel.setForeground(new ColorUIResource(234,0,0));
                 titleLabel.setOpaque(true); 
@@ -51,16 +52,16 @@ public class HomeScreen {
         
                 // Botón
         
-                JButton goMenu = new JButton("<html>Acceder al<br>contenedor<html>");
-                goMenu.setBounds(300, 300, 200, 100);
+                JButton goMenu = new JButton("<html><div style='text-align: center;'>Acceder al<br>contenedor de almacenamiento</div><html>");
+                goMenu.setBounds(275, 200, 250, 100);
                 ButtonUtils.applyHoverEffect(goMenu);
-                goMenu.setFont(goMenu.getFont().deriveFont(20f));
+                goMenu.setFont(goMenu.getFont().deriveFont(15f));
         
                 //Barra de carga (oculto antes de darle al botón)
         
                 JProgressBar progressBar = new JProgressBar();
                 progressBar.setBounds(250, 480, 300, 50);
-                progressBar.setForeground(new javax.swing.plaf.ColorUIResource(35,182,60)); 
+                progressBar.setForeground(new javax.swing.plaf.ColorUIResource(204, 70, 50)); 
                 progressBar.setBackground(new javax.swing.plaf.ColorUIResource(200, 200, 200)); 
                 progressBar.setStringPainted(true);
                 progressBar.setVisible(false);
@@ -95,7 +96,7 @@ public class HomeScreen {
                         @Override
                         protected void done() {
                             frame.dispose(); // Cierra la ventana de inicio
-                            new MenuView(); // Abre la ventana del "menú" desde la clase
+                            userController.openMenuView(); // Abre la ventana del "menú" desde la clase
                         }
                     };
         
@@ -109,18 +110,4 @@ public class HomeScreen {
                 frame.add(backgroundLabel);
                 frame.setVisible(true);
             }
-        
-            public static void setUIFont(FontUIResource font) {
-                UIManager.put("Label.font", font);
-                UIManager.put("Button.font", font);
-                UIManager.put("TextField.font", font);
-                UIManager.put("TextArea.font", font);
-                UIManager.put("CheckBox.font", font);
-                UIManager.put("RadioButton.font", font);
-                UIManager.put("ComboBox.font", font);
-                UIManager.put("List.font", font);
-                UIManager.put("Table.font", font);
-                UIManager.put("Menu.font", font);
-                UIManager.put("MenuItem.font", font);
-                UIManager.put("ToolTip.font", font);
-            }}
+}
