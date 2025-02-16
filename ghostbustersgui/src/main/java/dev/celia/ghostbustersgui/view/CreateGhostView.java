@@ -191,7 +191,7 @@ public class CreateGhostView extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void cleanFields() {
+    public void cleanFields() {
         SwingUtilities.invokeLater(() -> {
             nameField.setText("");
             abilityField.setText("");
