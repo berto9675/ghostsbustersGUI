@@ -12,10 +12,6 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.io.IOException;
-import java.awt.FontFormatException;
-import java.io.InputStream;
 
 import javax.swing.plaf.FontUIResource;
 
@@ -25,7 +21,7 @@ public class HomeScreen {
     public static void main(String[] args) {
         
         //Cargar la fuente desde utils
-        Font customFont = utils.loadCustomFont("/fonts/GHOSTBUS.TTF");
+        Font customFont = utils.loadCustomFont("/fonts/font.ttf");
         //Aplicarla a toda la UI
         utils.setUIFont(customFont);
         
@@ -100,7 +96,7 @@ public class HomeScreen {
                         @Override
                         protected void done() {
                             frame.dispose(); // Cierra la ventana de inicio
-                            new Menu(); // Abre la ventana del "menú" desde la clase
+                            new MenuView(); // Abre la ventana del "menú" desde la clase
                         }
                     };
         
