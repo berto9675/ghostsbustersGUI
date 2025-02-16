@@ -25,8 +25,11 @@ public class MenuView extends JFrame {
         backgroundLabel.setLayout(new BorderLayout());
         setContentPane(backgroundLabel);
 
+        Font customFont = utils.loadCustomFont("/fonts/font.ttf");
+        utils.setUIFont(customFont);
+
         JLabel titulo = new JLabel("Menú Principal", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 28));
+        titulo.setFont(titulo.getFont().deriveFont(28f));
         titulo.setForeground(Color.WHITE);
         titulo.setOpaque(true);
         titulo.setBackground(new Color(0, 0, 0, 150));
@@ -42,14 +45,13 @@ public class MenuView extends JFrame {
         gbc.gridy = 0;
         panelBotones.add(Box.createVerticalStrut(80), gbc);
         
-        // Botones
         JButton capturar = new JButton("Capturar Fantasma");
         JButton ver = new JButton("Ver Fantasmas");
         JButton salir = new JButton("Salir");
         
         Color colorFondo = new Color(35, 182, 60);
         Color colorTexto = new Color(255, 255, 255);
-        Font fuente = new Font("Arial", Font.BOLD, 16);
+        Font fuente = customFont.deriveFont(16f);
         
         for (JButton btn : new JButton[]{capturar, ver, salir}) {
             btn.setBackground(colorFondo);
@@ -68,24 +70,8 @@ public class MenuView extends JFrame {
         gbc.gridy = 3;
         panelBotones.add(salir, gbc);
 
-        salir.addActionListener(e -> {
-            String[] opciones = {"Sí", "No"};
-            int respuesta = JOptionPane.showOptionDialog(
-                this, 
-                "¿Estás seguro de que deseas salir?", 
-                "Confirmar salida", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.WARNING_MESSAGE, 
-                null, 
-                opciones, 
-                opciones[1] 
-            );
-        
-            if (respuesta == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        });
-        
+
+        salir.addActionListener(e -> exitConfirmation());
         
         add(panelBotones, BorderLayout.CENTER);
         setLocationRelativeTo(null);
@@ -93,9 +79,103 @@ public class MenuView extends JFrame {
 
     }
 
+    public void exitConfirmation() {
+
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/logo_back.png"));
+
+        Image scaledImage = originalIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(scaledImage);
+
+        JPanel messagePanel = new JPanel(new BorderLayout());
+        messagePanel.setBackground(new Color(0, 0, 0));
+
+        JLabel iconLabel = new JLabel(icon, JLabel.CENTER);
+        messagePanel.add(iconLabel, BorderLayout.CENTER);
+        
+        Font customFont = utils.loadCustomFont("/font.ttf").deriveFont(20f);
+        JPanel btnPanel = new JPanel(new FlowLayout());
+        JButton yesButton = new JButton("Sí, salir");
+        utils.ButtonUtils.applyHoverEffect(yesButton);
+        yesButton.setFont(customFont);
+        btnPanel.setBackground(new Color(0,0,0));
+
+        JButton noButton = new JButton("Cancelar");
+        utils.ButtonUtils.applyHoverEffect(noButton);
+        noButton.setFont(customFont);
+
+        btnPanel.add(yesButton);
+        btnPanel.add(noButton);
+        messagePanel.add(btnPanel, BorderLayout.SOUTH);
+
+        JDialog dialog = new JDialog(this, "Confirmar Salida", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLayout(getLayout());
+        dialog.add(messagePanel, BorderLayout.CENTER);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+
+        yesButton.addActionListener(e -> {
+            exitFarewell();
+        });
+
+        noButton.addActionListener(e -> {
+            dialog.dispose();
+        });
+
+        dialog.setVisible(true);
+    }
+
+    private void exitFarewell() {
+        JDialog farewell = new JDialog(this, "¡Adiós Cazafantasma!", true);
+        farewell.setLayout(new BorderLayout());
+    
+        Font customFont = utils.loadCustomFont("/font.ttf").deriveFont(15f);
+    
+        ImageIcon farewellIcon = new ImageIcon(getClass().getResource("/images/ghostpeace.jpg"));
+        Image scaledFarewell = farewellIcon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledFarewell);
+    
+        JLabel scaledLabel = new JLabel(scaledIcon);
+        scaledLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    
+        JLabel farewellLabel = new JLabel(
+            "<html><div style='text-align: center;'>¡Operación completada en el Contenedor de almacenamiento de fantasmas!<br>"
+            + "Recuerda: Ningún trabajo es demasiado grande, ningún honorario es demasiado alto...<br>"
+            + "¡Gracias por proteger Asturias y la integridad del más allá!</div></html>", 
+            SwingConstants.CENTER
+        );
+    
+        farewellLabel.setFont(customFont);
+        farewellLabel.setForeground(Color.WHITE);
+        farewellLabel.setOpaque(true);
+        farewellLabel.setBackground(Color.BLACK);
+        farewellLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(Color.BLACK);
+        contentPanel.add(scaledLabel);
+        contentPanel.add(farewellLabel);
+        
+        JButton okButton = new JButton("Cerrar");
+        okButton.addActionListener(e -> System.exit(0));
+        utils.ButtonUtils.applyHoverEffect(okButton);
+        okButton.setFont(customFont);
+        okButton.setPreferredSize(new Dimension(150, 40));
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(okButton);
+    
+        farewell.getContentPane().setBackground(Color.BLACK);
+        farewell.add(contentPanel, BorderLayout.CENTER);
+        farewell.add(buttonPanel, BorderLayout.SOUTH);
+        farewell.pack();
+        farewell.setLocationRelativeTo(this);
+        farewell.setVisible(true);
+    }
+    
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MenuView::new);
     }
-
-
 }
