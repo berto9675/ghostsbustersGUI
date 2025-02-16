@@ -1,13 +1,15 @@
-package dev.celia.ghostbustersgui.view;
+package dev.celia.ghostbustersgui;
 
 import dev.celia.ghostbustersgui.controller.UserController;
-import dev.celia.ghostbustersgui.model.*;
+import dev.celia.ghostbustersgui.model.GhostClass;
+import dev.celia.ghostbustersgui.model.GhostModel;
+import dev.celia.ghostbustersgui.model.UserModel;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ListView extends JFrame {
     private final UserController controller;
@@ -16,6 +18,7 @@ public class ListView extends JFrame {
     private final JComboBox<GhostClass> classFilter;
     private final JTextField monthFilter;
     private final JButton deleteButton;
+    private final JButton backButton; 
 
     public ListView(UserController controller) {
         this.controller = controller;
@@ -30,111 +33,129 @@ public class ListView extends JFrame {
         table = new JTable(tableModel);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-      
         JPanel filterPanel = new JPanel();
-
-        
         classFilter = new JComboBox<>(GhostClass.values());
-        JButton classFilterButton = new JButton("Filtrar por Clase");
-        classFilterButton.addActionListener(e -> applyClassFilter());
-
-      
         monthFilter = new JTextField(2);
-        JButton monthFilterButton = new JButton("Filtrar por Mes");
-        monthFilterButton.addActionListener(e -> applyMonthFilter());
 
-        
-        JButton resetButton = new JButton("Resetear");
-        resetButton.addActionListener(e -> resetFilters());
+        JButton filterClassButton = new JButton("Filtrar");
+        filterClassButton.addActionListener(e -> filterByClass());
 
-        
+        JButton filterMonthButton = new JButton("Filtrar");
+        filterMonthButton.addActionListener(e -> filterByMonth());
+
+        JButton resetButton = new JButton("Resetear Filtros");
+        resetButton.addActionListener(e -> loadGhosts(controller.getCapturedGhosts()));
+
         filterPanel.add(new JLabel("Clase:"));
         filterPanel.add(classFilter);
-        filterPanel.add(classFilterButton);
-        filterPanel.add(new JLabel("Mes (1-12):"));
+        filterPanel.add(filterClassButton);
+        filterPanel.add(new JLabel("Mes de Captura (1-12):"));
         filterPanel.add(monthFilter);
-        filterPanel.add(monthFilterButton);
+        filterPanel.add(filterMonthButton);
         filterPanel.add(resetButton);
         add(filterPanel, BorderLayout.NORTH);
 
-        
+     
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+
+        backButton = new JButton("Volver al Menú");
+        backButton.addActionListener(e -> goToMenu());
+
         deleteButton = new JButton("Liberar Fantasma");
         deleteButton.addActionListener(e -> releaseGhost());
-        add(deleteButton, BorderLayout.SOUTH);
+
+       
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel.add(backButton);
+
+       
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightPanel.add(deleteButton);
+
+        bottomPanel.add(leftPanel, BorderLayout.WEST);
+        bottomPanel.add(rightPanel, BorderLayout.EAST);
+        add(bottomPanel, BorderLayout.SOUTH);
 
         loadGhosts(controller.getCapturedGhosts());
-
+        setLocationRelativeTo(null); 
         setVisible(true);
     }
 
     private void loadGhosts(List<GhostModel> ghosts) {
         tableModel.setRowCount(0);
         for (GhostModel g : ghosts) {
-            tableModel.addRow(
-                    new Object[]{g.getID(), g.getName(), g.getGhostClass(), g.getDangerLvl(), g.getCaptureDate()});
+            tableModel.addRow(new Object[]{ g.getID(), g.getName(), g.getGhostClass(), g.getDangerLvl(), g.getCaptureDate() });
         }
     }
 
-    private void applyClassFilter() {
+    private void filterByClass() {
         GhostClass selectedClass = (GhostClass) classFilter.getSelectedItem();
-        if (selectedClass == null) return;
-
         List<GhostModel> filteredGhosts = controller.getCapturedGhosts().stream()
                 .filter(g -> g.getGhostClass().equals(selectedClass))
-                .collect(Collectors.toList());
-
+                .toList();
         loadGhosts(filteredGhosts);
     }
 
-    private void applyMonthFilter() {
+    private void filterByMonth() {
         String monthText = monthFilter.getText().trim();
         if (monthText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingresa un mes válido (1-12)", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         try {
             int month = Integer.parseInt(monthText);
             if (month < 1 || month > 12) {
-                JOptionPane.showMessageDialog(this, "El mes debe estar entre 1 y 12", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingresa un mes válido (1-12)", "Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             List<GhostModel> filteredGhosts = controller.getCapturedGhosts().stream()
                     .filter(g -> {
                         String[] parts = g.getCaptureDate().split("-");
-                        return parts.length >= 2 && Integer.parseInt(parts[1]) == month;
+                        return parts.length > 1 && Integer.parseInt(parts[1]) == month;
                     })
-                    .collect(Collectors.toList());
-
+                    .toList();
             loadGhosts(filteredGhosts);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingresa un número válido para el mes", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingresa un número válido", "Error", JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    private void resetFilters() {
-        classFilter.setSelectedIndex(0);
-        monthFilter.setText("");
-        loadGhosts(controller.getCapturedGhosts());
     }
 
     private void releaseGhost() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona un fantasma para liberar", "Error",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecciona un fantasma para liberar", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+    
+        // Obtener los datos del fantasma seleccionado
         int id = (int) tableModel.getValueAt(selectedRow, 0);
-        boolean success = controller.releaseGhost(id);
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Fantasma liberado exitosamente");
-            loadGhosts(controller.getCapturedGhosts());
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo liberar el fantasma", "Error", JOptionPane.ERROR_MESSAGE);
+        String ghostName = (String) tableModel.getValueAt(selectedRow, 1);
+        String dangerLevel = (String) tableModel.getValueAt(selectedRow, 3);
+    
+        // Crear el mensaje de confirmación
+        String message = "<html>¿Está seguro que desea liberar al fantasma <b><font color='blue'>" + ghostName + 
+                 "</font></b> de peligro <b><font color='red'>" + dangerLevel + "</font></b>?</html>";
+
+        // Mostrar el cuadro de diálogo de confirmación
+        int confirm = JOptionPane.showConfirmDialog(this, message, "Confirmar Liberación", JOptionPane.YES_NO_OPTION);
+    
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Si el usuario confirma, liberar el fantasma
+            boolean success = controller.releaseGhost(id);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Fantasma liberado exitosamente");
+                loadGhosts(controller.getCapturedGhosts()); // Recargar la lista
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo liberar el fantasma", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }
+    
+
+    private void goToMenu() {
+
+        SwingUtilities.invokeLater(() -> new MenuView());
+        dispose(); 
     }
 
     public static void main(String[] args) {
