@@ -69,7 +69,7 @@ public class UserControllerTest {
     @Test
     @DisplayName("Test para verificar que se abre MenuView")
     void testOpenMenuView() {
-        assertDoesNotThrow(() -> new MenuView(userController));
+        assertDoesNotThrow(() -> userController.openMenuView());
     }
     @Test
     @DisplayName("Test para verificar que se abre CreateGhostView")
