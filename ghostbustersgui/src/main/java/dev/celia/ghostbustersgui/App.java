@@ -1,17 +1,19 @@
 package dev.celia.ghostbustersgui;
 
-/**
- * Hello world!
- */
+import dev.celia.ghostbustersgui.controller.UserController;
+import dev.celia.ghostbustersgui.model.UserModel;
+
 public final class App {
     private App() {
     }
 
     /**
-     * Says hello to the world.
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        UserModel userModel = new UserModel();
+        UserController userController = new UserController(userModel);
+        userController.openHomeScreen();
+
     }
 }
