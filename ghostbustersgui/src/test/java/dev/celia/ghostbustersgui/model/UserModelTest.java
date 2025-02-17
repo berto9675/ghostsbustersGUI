@@ -61,4 +61,11 @@ public class UserModelTest {
         List<GhostModel> poltergeist = userModel.filterByClass(GhostClass.CLASS_I);
         assertThat(poltergeist, containsInAnyOrder(ghost1, ghost3));
     }
+
+    @Test
+    @DisplayName("Test para filtrar fantasmas por mes de captura")
+    void testFilterByMonth() {
+        List<GhostModel> filteredGhost = userModel.filterByMonth(3);
+        assertThat(filteredGhost, containsInAnyOrder(ghost1, ghost2));
+    }
 }
