@@ -26,12 +26,12 @@ import dev.celia.ghostbustersgui.controller.UserController;
 import dev.celia.ghostbustersgui.model.GhostClass;
 
 public class CreateGhostView extends JFrame {
-    private JTextField nameField;
-    private JComboBox<GhostClass> ghostClassCombo;
-    private JComboBox<String> dangerLevelCombo;
-    private JTextField abilityField;
-    private JTextField captureDateField;
-    private JButton captureButton;
+    public JTextField nameField;
+    public JComboBox<GhostClass> ghostClassCombo;
+    public JComboBox<String> dangerLevelCombo;
+    public JTextField abilityField;
+    public JTextField captureDateField;
+    public JButton captureButton;
     
     private final UserController userController;
 
@@ -45,6 +45,7 @@ public class CreateGhostView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
+        setUndecorated(true);
         UIManager.put("Panel.background", new Color(11, 7, 15));
 
         Font customFont = utils.loadCustomFont("/fonts/font.ttf").deriveFont(14f);
@@ -191,7 +192,7 @@ public class CreateGhostView extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void cleanFields() {
+    public void cleanFields() {
         SwingUtilities.invokeLater(() -> {
             nameField.setText("");
             abilityField.setText("");
