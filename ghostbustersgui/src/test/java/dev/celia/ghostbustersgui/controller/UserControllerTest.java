@@ -4,28 +4,32 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.mockito.MockitoAnnotations;
 
 import dev.celia.ghostbustersgui.model.GhostClass;
 import dev.celia.ghostbustersgui.model.GhostModel;
 import dev.celia.ghostbustersgui.model.UserModel;
 import dev.celia.ghostbustersgui.view.HomeScreen;
-import dev.celia.ghostbustersgui.view.MenuView;
 
 public class UserControllerTest {
-    @Mock
+
     private UserController userController;
     
     @Mock
     private UserModel userModelMock;
-
 
     @BeforeEach
     void setUp() {
@@ -75,5 +79,17 @@ public class UserControllerTest {
     @DisplayName("Test para verificar que se abre CreateGhostView")
     void testOpenCreateGhostView() {
         assertDoesNotThrow(() -> userController.openCreateGhostView());
+    }
+
+    @Test
+    @DisplayName("Test para liberar un fantasma")
+    void testReleaseGhost() {
+        int ghostId = 1;
+        when(userModelMock.deleteGhost(ghostId)).thenReturn(true);
+
+        boolean result = userController.releaseGhost(ghostId);
+
+        assertTrue(result);
+        verify(userModelMock, times(1)).deleteGhost(ghostId);
     }
 }
