@@ -58,7 +58,7 @@ Desde aquí, los usuarios pueden acceder a las diferentes funciones del programa
 - Se solicita confirmación para evitar cierres accidentales.
 ## Capturas de pantalla
 [demo](/src%20read.me/ghostbusterdemo.mp4)
----
+
 # Historias de Usuario
 A continuación, se presentan las historias de usuario definidas para este proyecto:
 ### 1️⃣ Captura de Fantasmas
@@ -67,9 +67,9 @@ A continuación, se presentan las historias de usuario definidas para este proye
 **Como** usuario cazador de fantasmas, **quiero** consultar una lista de los fantasmas que he capturado, **para** revisar su información y organizar mis registros.
 ### 3️⃣ Liberación de Fantasmas Inofensivos
 **Como** usuario cazador de fantasmas, **quiero** tener la opción de liberar fantasmas inofensivos, **para** mantener un equilibrio entre el mundo humano y el paranormal.
-### 4️⃣ Confirmación al salir del programa
+### 4️⃣ Confirmación al salir del programa  
 **Como** usuario cazador de fantasmas, **quiero** recibir una confirmación antes de salir de la aplicación, **para** evitar cerrar la sesión accidentalmente.
----
+
 # Gestión del Proyecto
 ## Enlace a Jira
 Puedes acceder al tablero de gestión del proyecto en Jira en el siguiente enlace:  
@@ -77,24 +77,24 @@ Puedes acceder al tablero de gestión del proyecto en Jira en el siguiente enlac
 ## Diagrama UML
 A continuación se presenta el diagrama UML del sistema:  
 [diagrama UML](/src%20read.me/GhostbustersGUI.drawio.svg)
----
+
 # Posibles mejoras futuras
 - **Persistencia de datos**: Actualmente, los datos no se guardan al salir. Se puede agregar una base de datos o archivos de almacenamiento.
 - **Autenticación de usuarios**: Implementar un sistema de inicio de sesión para guardar progresos individuales.
 - **Mayor interactividad en la interfaz**: Uso de animaciones o mejoras visuales para la experiencia de usuario.
----
+
 # Pruebas
 Aunque en esta versión no se han implementado pruebas con TDD, el código base se ha desarrollado sobre una versión previa que sí incluyó pruebas unitarias con JUnit y pruebas unitarias.
 [cobertura de test](/src%20read.me/Test_GUI.PNG)
----
+
 # Autores
 Este proyecto ha sido desarrollado por el equipo **JavaNormal Activity**:
 - **Celia** (Developer)
 - **Erika** (Developer)
 - **Juan** (Developer)
 - **Alberto** (Support)
----
+
 # 📜 Licencia
 Este proyecto se distribuye bajo la licencia **MIT**. Puedes utilizarlo y modificarlo libremente bajo los términos de esta licencia.
----
+
 ✨ **¡Esperamos que disfrutes cazando fantasmas en Asturias!** 👻🔦
