@@ -82,6 +82,12 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("Test para verificar que se abre ListView")
+    void testOpenListView() {
+        assertDoesNotThrow(() -> userController.openListView());
+    }
+
+    @Test
     @DisplayName("Test para liberar un fantasma")
     void testReleaseGhost() {
         int ghostId = 1;
