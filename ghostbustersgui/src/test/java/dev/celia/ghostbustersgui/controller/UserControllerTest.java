@@ -92,4 +92,16 @@ public class UserControllerTest {
         assertTrue(result);
         verify(userModelMock, times(1)).deleteGhost(ghostId);
     }
+
+    @Test
+    @DisplayName("Test para no poder liberar un fantasma")
+    void testReleaseGhost_Failed() {
+        int ghostId = 2;
+        when(userModelMock.deleteGhost(ghostId)).thenReturn(false);
+
+        boolean result = userController.releaseGhost(ghostId);
+
+        assertFalse(result);
+        verify(userModelMock, times(1)).deleteGhost(ghostId);
+    }
 }
