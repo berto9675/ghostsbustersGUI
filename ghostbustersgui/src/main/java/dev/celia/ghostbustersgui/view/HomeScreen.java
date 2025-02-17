@@ -13,13 +13,18 @@ import javax.swing.plaf.ColorUIResource;
 import dev.celia.ghostbustersgui.controller.UserController;
 import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 
-public class HomeScreen extends JFrame{
-    private final UserController userController;
-    public HomeScreen(UserController userController) {
-        this.userController = userController;
-
+public class HomeScreen {
+    public HomeScreen() {
+        
+       
         Font customFont = utils.loadCustomFont("/fonts/font.ttf");
+      
         utils.setUIFont(customFont);
+        
+
+        UserModel userModel = new UserModel();
+
+        UserController userController = new UserController(userModel);
         
                 JFrame frame = new JFrame ("Ghostbusters");
                 frame.setSize(800, 600);
@@ -28,11 +33,16 @@ public class HomeScreen extends JFrame{
                 frame.setLayout(null);
                 frame.setUndecorated(true);
         
+        
+               
+        
                 java.net.URL imageURL = HomeScreen.class.getClassLoader().getResource("images/home.png");
         
                 ImageIcon background = new ImageIcon(imageURL);
                 JLabel backgroundLabel = new JLabel(background);
                 backgroundLabel.setBounds(0,0,800,600);
+        
+        
         
                 JLabel titleLabel = new JLabel("<html><div style='text-align: center;'>Bienvenido a la central<br>Cazafantasmas</div></html>", SwingConstants.CENTER);
                 titleLabel.setBounds(10, 0, 800, 130);
@@ -41,10 +51,14 @@ public class HomeScreen extends JFrame{
                 titleLabel.setOpaque(true); 
                 titleLabel.setBackground(new Color(0, 0, 0, 200));
         
+               
+        
                 JButton goMenu = new JButton("<html><div style='text-align: center;'>Acceder al<br>contenedor de almacenamiento</div><html>");
                 goMenu.setBounds(275, 250, 250, 100);
                 ButtonUtils.applyHoverEffect(goMenu);
                 goMenu.setFont(goMenu.getFont().deriveFont(15f));
+        
+            
         
                 JProgressBar progressBar = new JProgressBar();
                 progressBar.setBounds(250, 480, 300, 50);
@@ -52,6 +66,8 @@ public class HomeScreen extends JFrame{
                 progressBar.setBackground(new javax.swing.plaf.ColorUIResource(200, 200, 200)); 
                 progressBar.setStringPainted(true);
                 progressBar.setVisible(false);
+        
+                
         
                 JLabel loadingLabel = new JLabel("Accediendo al contenedor de almacenamiento de fantasmas...", SwingConstants.CENTER);
                 loadingLabel.setBounds(160, 430, 475, 40);
@@ -61,11 +77,13 @@ public class HomeScreen extends JFrame{
                 loadingLabel.setOpaque(true); 
                 loadingLabel.setBackground(new Color(0, 0, 0, 230));
         
+               
+        
                 goMenu.addActionListener(e -> {
-                    goMenu.setEnabled(false); 
+                    goMenu.setEnabled(false);  
                     loadingLabel.setVisible(true);
                     progressBar.setVisible(true);
-
+                  
                     SwingWorker<Void, Void> worker = new SwingWorker<>() {
                         @Override
                         protected Void doInBackground() throws InterruptedException {
@@ -79,11 +97,11 @@ public class HomeScreen extends JFrame{
                         @Override
                         protected void done() {
                             frame.dispose(); 
-                            userController.openMenuView();
+                            userController.openMenuView(); 
                         }
                     };
         
-                    worker.execute();
+                    worker.execute();  
                 });
         
                 frame.add(titleLabel);

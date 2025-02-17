@@ -45,57 +45,60 @@ public class MenuView extends JFrame {
         Font customFont = utils.loadCustomFont("/fonts/font.ttf");
         utils.setUIFont(customFont);
 
-        JLabel titulo = new JLabel("Menú Principal", SwingConstants.CENTER);
-        titulo.setFont(titulo.getFont().deriveFont(28f));
-        titulo.setForeground(Color.WHITE);
-        titulo.setOpaque(true);
-        titulo.setBackground(new Color(0, 0, 0, 150));
-        titulo.setPreferredSize(new Dimension(800, 50));
-        add(titulo, BorderLayout.NORTH);
+        JLabel title = new JLabel("Menú Principal", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(28f));
+        title.setForeground(Color.WHITE);
+        title.setOpaque(true);
+        title.setBackground(new Color(0, 0, 0, 150));
+        title.setPreferredSize(new Dimension(800, 50));
+        add(title, BorderLayout.NORTH);
 
-        JPanel panelBotones = new JPanel(new GridBagLayout());
-        panelBotones.setOpaque(false);
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 0, 10, 0); 
               
         gbc.gridy = 0;
-        panelBotones.add(Box.createVerticalStrut(80), gbc);
+        buttonPanel.add(Box.createVerticalStrut(80), gbc);
         
-        JButton capturar = new JButton("Capturar Fantasma");
-        JButton ver = new JButton("Ver Fantasmas");
-        JButton salir = new JButton("Salir");
+        JButton capture = new JButton("Capturar Fantasmas");
+        JButton view = new JButton("Ver Fantasmas");
+        JButton exit = new JButton("Salir");
         
-        Color colorFondo = new Color(35, 182, 60);
-        Color colorTexto = new Color(255, 255, 255);
-        Font fuente = customFont.deriveFont(16f);
+        Color backgroundColor = new Color(35, 182, 60);
+        Color textColor = new Color(255, 255, 255);
+        Font font = customFont.deriveFont(16f);
         
-        for (JButton btn : new JButton[]{capturar, ver, salir}) {
-            btn.setBackground(colorFondo);
-            btn.setForeground(colorTexto);
-            btn.setFont(fuente);
+        for (JButton btn : new JButton[]{capture, view, exit}) {
+            btn.setBackground(backgroundColor);
+            btn.setForeground(textColor);
+            btn.setFont(font);
             btn.setFocusPainted(false);
             btn.setPreferredSize(new Dimension(200, 40)); 
         }
 
         gbc.gridy = 1;
         gbc.weighty = 0;
-        panelBotones.add(capturar, gbc);
+        buttonPanel.add(capture, gbc);
         gbc.gridy = 2;
-        panelBotones.add(ver, gbc);
+        buttonPanel.add(view, gbc);
         gbc.gridy = 3;
-        panelBotones.add(salir, gbc);
+        buttonPanel.add(exit, gbc);
 
-        capturar.addActionListener(e -> {
+        capture.addActionListener(e -> {
             this.dispose();
             userController.openCreateGhostView();
         });
+        view.addActionListener(e -> {
+            this.dispose();
+            userController.openListView();
+        });
         
-        salir.addActionListener(e -> exitConfirmation());
+        exit.addActionListener(e -> exitConfirmation());
         
-        add(panelBotones, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
     public void exitConfirmation() {
@@ -113,7 +116,7 @@ public class MenuView extends JFrame {
         
         Font customFont = utils.loadCustomFont("/font.ttf").deriveFont(20f);
         JPanel btnPanel = new JPanel(new FlowLayout());
-        JButton yesButton = new JButton("Sí, salir");
+        JButton yesButton = new JButton("Si, salir");
         utils.ButtonUtils.applyHoverEffect(yesButton);
         yesButton.setFont(customFont);
         btnPanel.setBackground(new Color(0,0,0));
@@ -160,7 +163,7 @@ public class MenuView extends JFrame {
         JLabel farewellLabel = new JLabel(
             "<html><div style='text-align: center;'>¡Operación completada en el Contenedor de almacenamiento de fantasmas!<br>"
             + "Recuerda: Ningún trabajo es demasiado grande, ningún honorario es demasiado alto...<br>"
-            + "¡Gracias por proteger Asturias y la integridad del más allá!</div></html>", 
+            + "¡Gracias por proteger Asturias y la integridad del más allá!</div></html>",  
             SwingConstants.CENTER
         );
     

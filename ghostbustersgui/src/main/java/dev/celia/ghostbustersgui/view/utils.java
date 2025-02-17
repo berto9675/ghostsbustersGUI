@@ -58,7 +58,6 @@ public class utils {
         }
     }
 
-    // Método para aplicar la fuente a toda la UI
     public static void setUIFont(Font font) {
         FontUIResource fontUI = new FontUIResource(font);
         UIManager.put("Label.font", fontUI);
