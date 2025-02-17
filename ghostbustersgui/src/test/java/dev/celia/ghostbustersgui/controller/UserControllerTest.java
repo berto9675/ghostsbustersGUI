@@ -67,7 +67,7 @@ public class UserControllerTest {
     @Test
     @DisplayName("Test para verificar que se abre HomeScreen")
     void testOpenHomeScreen() {
-        assertDoesNotThrow(() -> new HomeScreen());
+        assertDoesNotThrow(() -> userController.openHomeScreen());
     }
 
     @Test

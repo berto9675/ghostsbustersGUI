@@ -1,8 +1,7 @@
 package dev.celia.ghostbustersgui;
 
-import javax.swing.SwingUtilities;
-
-import dev.celia.ghostbustersgui.view.HomeScreen;
+import dev.celia.ghostbustersgui.controller.UserController;
+import dev.celia.ghostbustersgui.model.UserModel;
 
 public final class App {
     private App() {
@@ -12,6 +11,9 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(HomeScreen::new);
+        UserModel userModel = new UserModel();
+        UserController userController = new UserController(userModel);
+        userController.openHomeScreen();
+
     }
 }
