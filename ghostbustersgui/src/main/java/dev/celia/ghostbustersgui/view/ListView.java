@@ -10,13 +10,13 @@ import java.awt.*;
 import java.util.List;
 
 public class ListView extends JFrame {
-    private final UserController userController;
-    private final JTable table;
-    private final DefaultTableModel tableModel;
-    private final JComboBox<GhostClass> classFilter;
-    private final JTextField monthFilter;
-    private final JButton deleteButton;
-    private final JButton backButton;
+    public final UserController userController;
+    public final JTable table;
+    public final DefaultTableModel tableModel;
+    public final JComboBox<GhostClass> classFilter;
+    public final JTextField monthFilter;
+    public final JButton deleteButton;
+    public final JButton backButton;
 
     public ListView(UserController userController) {
     
@@ -137,13 +137,13 @@ public class ListView extends JFrame {
         }
     }
 
-    private void filterByClass() {
+    public void filterByClass() {
         GhostClass selectedClass = (GhostClass) classFilter.getSelectedItem();
         List<GhostModel> filteredGhosts = userController.filterGhostsByClass(selectedClass);
         loadGhosts(filteredGhosts);
     }
 
-    private void filterByMonth() {
+    public void filterByMonth() {
         String monthText = monthFilter.getText().trim();
         if (monthText.isEmpty()) {
             showErrorDialog("Ingresa un mes válido (1-12)");
@@ -168,7 +168,7 @@ public class ListView extends JFrame {
 
     }
 
-    private void releaseGhost() {
+    public void releaseGhost() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
             showErrorDialog("Selecciona un fantasma para liberar");
@@ -195,14 +195,14 @@ public class ListView extends JFrame {
         }
     }
 
-    private void showErrorDialog(String message) {
+    public void showErrorDialog(String message) {
         UIManager.put("OptionPane.messageForeground", Color.WHITE);
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 18));
         UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.BOLD, 16));
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.WARNING_MESSAGE);
     }
 
-     private int showConfirmDialogWithCustomStyle(String message, String title) {
+     public int showConfirmDialogWithCustomStyle(String message, String title) {
             
             UIManager.put("OptionPane.messageForeground", Color.WHITE);  
             UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 18));  
