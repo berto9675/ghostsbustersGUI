@@ -40,7 +40,14 @@ public class ListViewTest {
         );
 
         when(mockUserController.getCapturedGhosts()).thenReturn(testGhosts);
-        
+
+        when(mockUserController.filterGhostsByClass(GhostClass.CLASS_I)).thenReturn(
+            Arrays.asList(
+                    new GhostModel("Slimer", GhostClass.CLASS_I, "Bajo", "swdadawd", "2024-02-10"),
+                    new GhostModel("Specter", GhostClass.CLASS_I, "Medio", "swdadawd", "2024-02-20")
+            )
+        );
+
         listView = new ListView(mockUserController);
     }
 
