@@ -2,7 +2,12 @@ package dev.celia.ghostbustersgui.model;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,5 +45,20 @@ public class UserModelTest {
     void testAddNullGhost() {
         userModel.addGhost(null);
         assertThat(userModel.getGhosts().size(), is(3));
+    }
+
+    @Test
+    @DisplayName("Test para liberar un fantasma")
+    void testDeleteGhost() {
+        boolean deleted = userModel.deleteGhost(ghost1.getID());
+        assertThat(deleted, is(true));
+        assertThat(userModel.getGhosts(), not(hasItem(ghost1)));
+    }
+
+    @Test
+    @DisplayName("Test para filtrar fantasmas por clase")
+    void testFilterByClass() {
+        List<GhostModel> poltergeist = userModel.filterByClass(GhostClass.CLASS_I);
+        assertThat(poltergeist, containsInAnyOrder(ghost1, ghost3));
     }
 }
