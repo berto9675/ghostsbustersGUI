@@ -57,6 +57,7 @@ public class utils {
             return new Font("Arial", Font.PLAIN, 12);
         }
     }
+
     public static void setUIFont(Font font) {
         FontUIResource fontUI = new FontUIResource(font);
         UIManager.put("Label.font", fontUI);
