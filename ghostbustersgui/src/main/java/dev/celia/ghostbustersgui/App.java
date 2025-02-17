@@ -11,6 +11,7 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
+        
         UserModel userModel = new UserModel();
         UserController userController = new UserController(userModel);
         userController.openHomeScreen();
