@@ -28,6 +28,7 @@ public class ListView extends JFrame {
         setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setUndecorated(true);
         UIManager.put("OptionPane.messageForeground", Color.WHITE);
         UIManager.put("OptionPane.font", new Font("Arial", Font.PLAIN, 16));
         UIManager.put("OptionPane.background", new Color(11, 7, 15));
@@ -138,9 +139,7 @@ public class ListView extends JFrame {
 
     private void filterByClass() {
         GhostClass selectedClass = (GhostClass) classFilter.getSelectedItem();
-        List<GhostModel> filteredGhosts = userController.getCapturedGhosts().stream()
-                .filter(g -> g.getGhostClass().equals(selectedClass))
-                .toList();
+        List<GhostModel> filteredGhosts = userController.filterGhostsByClass(selectedClass);
         loadGhosts(filteredGhosts);
     }
 

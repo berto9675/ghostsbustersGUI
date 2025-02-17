@@ -13,11 +13,11 @@ import dev.celia.ghostbustersgui.view.MenuView;
 
 public class UserController {
     private final UserModel userModel;
-    // private final ListView listView;
+ 
 
     public UserController(UserModel userModel) {
         this.userModel = userModel;
-        // this.listView = listView;
+      
     }
 
     public void openMenuView() {
@@ -47,54 +47,8 @@ public class UserController {
     public boolean releaseGhost(int id) {
         return userModel.deleteGhost(id);
     }
+    public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) { 
+        return userModel.filterByClass(ghostClass); 
+    }
 
 }
-
-/*
- * public void showCapturedGhosts() {
- * List<GhostModel> ghosts = userModel.getGhosts();
- * ghostView.showGhosts(ghosts);
- * }
- * 
- * public void releaseGhost() {
- * int id = deleteGhostView.getGhostDeleteID();
- * boolean success = userModel.deleteGhost(id);
- * if (success) {
- * deleteGhostView.messageRelease();
- * } else {
- * deleteGhostView.messageReleaseFailed(id);
- * }
- * }
- * 
- * public void filterGhostsByClass() {
- * GhostClass ghostClass = createGhostView.selectGhostClass();
- * List<GhostModel> filtered = userModel.filterByClass(ghostClass);
- * ghostView.showGhosts(filtered);
- * }
- * 
- * public void filterGhostsByMonth() {
- * int month = filterByMonthView.getFilterMonth();
- * List<GhostModel> filtered = userModel.filterByMonth(month);
- * ghostView.showGhosts(filtered);
- * }
- * 
- * public void start() {
- * boolean exit = false;
- * while (!exit) {
- * int option = menuView.showMenuAndGetOption();
- * 
- * switch (option) {
- * case 1 -> captureGhost();
- * case 2 -> showCapturedGhosts();
- * case 3 -> releaseGhost();
- * case 4 -> filterGhostsByClass();
- * case 5 -> filterGhostsByMonth();
- * case 6 -> {
- * AsciiArt.printAsciiArt("exit.txt");
- * AsciiArt.printAsciiArt("ghost.txt");
- * exit = true;
- * }
- * }
- * }
- * }
- */

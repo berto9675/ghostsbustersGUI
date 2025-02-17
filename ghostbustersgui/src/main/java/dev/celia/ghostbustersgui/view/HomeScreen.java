@@ -19,10 +19,11 @@ import dev.celia.ghostbustersgui.view.utils.ButtonUtils;
 public class HomeScreen {
     public HomeScreen() {
         
-        //Cargar la fuente desde utils
+       
         Font customFont = utils.loadCustomFont("/fonts/font.ttf");
-        //Aplicarla a toda la UI
+      
         utils.setUIFont(customFont);
+        
 
         UserModel userModel = new UserModel();
 
@@ -32,9 +33,10 @@ public class HomeScreen {
                 frame.setSize(800, 600);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLayout(null);
+                frame.setUndecorated(true);
         
         
-                //Imagen  de fondo
+               
         
                 java.net.URL imageURL = HomeScreen.class.getClassLoader().getResource("images/home.png");
         
@@ -42,7 +44,7 @@ public class HomeScreen {
                 JLabel backgroundLabel = new JLabel(background);
                 backgroundLabel.setBounds(0,0,800,600);
         
-                //Titulo
+        
         
                 JLabel titleLabel = new JLabel("<html><div style='text-align: center;'>Bienvenido a la central<br>Cazafantasmas</div></html>", SwingConstants.CENTER);
                 titleLabel.setBounds(10, 0, 800, 130);
@@ -51,14 +53,14 @@ public class HomeScreen {
                 titleLabel.setOpaque(true); 
                 titleLabel.setBackground(new Color(0, 0, 0, 200));
         
-                // Botón
+               
         
                 JButton goMenu = new JButton("<html><div style='text-align: center;'>Acceder al<br>contenedor de almacenamiento</div><html>");
                 goMenu.setBounds(275, 200, 250, 100);
                 ButtonUtils.applyHoverEffect(goMenu);
                 goMenu.setFont(goMenu.getFont().deriveFont(15f));
         
-                //Barra de carga (oculto antes de darle al botón)
+            
         
                 JProgressBar progressBar = new JProgressBar();
                 progressBar.setBounds(250, 480, 300, 50);
@@ -67,7 +69,7 @@ public class HomeScreen {
                 progressBar.setStringPainted(true);
                 progressBar.setVisible(false);
         
-                //Mensaje de carga (oculto antes de darle al botón)
+                
         
                 JLabel loadingLabel = new JLabel("Accediendo al contenedor de almacenamiento de fantasmas...", SwingConstants.CENTER);
                 loadingLabel.setBounds(160, 430, 475, 40);
@@ -77,31 +79,31 @@ public class HomeScreen {
                 loadingLabel.setOpaque(true); 
                 loadingLabel.setBackground(new Color(0, 0, 0, 230));
         
-                //Funcionalidad del botón
+               
         
                 goMenu.addActionListener(e -> {
-                    goMenu.setEnabled(false); // botón desactivado mientras la barra carga
+                    goMenu.setEnabled(false);  
                     loadingLabel.setVisible(true);
                     progressBar.setVisible(true);
-                    //Simular la carga con SwingWorker
+                  
                     SwingWorker<Void, Void> worker = new SwingWorker<>() {
                         @Override
                         protected Void doInBackground() throws InterruptedException {
                             for (int i = 0; i <= 100; i += 5) {
                                 progressBar.setValue(i);
-                                Thread.sleep(80); // Simula la carga de 100% en 3 segundos
+                                Thread.sleep(80);
                             }
                             return null;
                         }
         
                         @Override
                         protected void done() {
-                            frame.dispose(); // Cierra la ventana de inicio
-                            userController.openMenuView(); // Abre la ventana del "menú" desde la clase
+                            frame.dispose(); 
+                            userController.openMenuView(); 
                         }
                     };
         
-                    worker.execute(); // Inicia la barra de carga
+                    worker.execute();  
                 });
         
                 frame.add(titleLabel);

@@ -45,6 +45,7 @@ public class CreateGhostView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
+        setUndecorated(true);
         UIManager.put("Panel.background", new Color(11, 7, 15));
 
         Font customFont = utils.loadCustomFont("/fonts/font.ttf").deriveFont(14f);
