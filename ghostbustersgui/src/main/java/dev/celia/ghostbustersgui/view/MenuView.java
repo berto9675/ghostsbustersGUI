@@ -89,6 +89,10 @@ public class MenuView extends JFrame {
             this.dispose();
             userController.openCreateGhostView();
         });
+        ver.addActionListener(e -> {
+            this.dispose();
+            userController.openListView();
+        });
         
         salir.addActionListener(e -> exitConfirmation());
         
